@@ -6,6 +6,7 @@ from launch.actions import (
     DeclareLaunchArgument,
     IncludeLaunchDescription,
     RegisterEventHandler,
+    SetEnvironmentVariable,
     TimerAction,
 )
 from launch.event_handlers import OnProcessExit
@@ -92,7 +93,7 @@ def generate_launch_description():
                     LaunchConfiguration('world'),
                     "' if '",
                     LaunchConfiguration('headless'),
-                    "' == 'true' else '-r ' + '",
+                    "' == 'true' else '-r --render-engine ogre ' + '",
                     LaunchConfiguration('world'),
                     "'",
                 ]
@@ -188,9 +189,16 @@ def generate_launch_description():
         )
     )
 
+    # Force Ogre1 rendering engine via environment variable (VMware compatibility)
+    set_render_engine = SetEnvironmentVariable(
+        name='GZ_SIM_RENDER_ENGINE_PATH',
+        value='ogre',
+    )
+
     return LaunchDescription(
         declared_arguments
         + [
+            set_render_engine,
             gz_sim,
             clock_bridge,
             robot_state_publisher_node,

@@ -14,6 +14,13 @@
     <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
     <plugin filename="gz-sim-contact-system" name="gz::sim::systems::Contact"/>
 
+    <!-- Force Ogre1 rendering engine (VMware does not support Ogre2) -->
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <engine>ogre</engine>
+    </scene>
+
     <!-- Lighting -->
     <light name="sun" type="directional">
       <cast_shadows>true</cast_shadows>
